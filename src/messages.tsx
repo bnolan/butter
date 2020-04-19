@@ -52,51 +52,85 @@ class Bridge {
 
 let bridge = new Bridge
 
-const Author = (props) => {
+const AuthorImage = (props) => {
+  return (
+    <View style={styles.authorImage} />
+  )
+}
+
+const AuthorInline = (props) => {
   return <Text>{ props.author.slice(0, 5) }...</Text>
+}
+
+const Author = (props) => {
+  return (
+    <View style={styles.authorText}>
+      <Text>{ props.author.slice(0, 5) }...</Text>
+    </View>
+  )
 }
 
 const About = (props) => {
   return (
-    <View>
-      <Author author={props.message.value.author} />
-      <Text>is now known as {props.message.value.content.name}</Text>
+    <View style={[styles.message, styles.about]}>
+      <AuthorImage author={props.message.value.author} />
+
+      <View style={styles.messageContent}>
+        <Text>
+          <AuthorInline author={props.message.value.author} /> is now known as {props.message.value.content.name}
+        </Text>
+      </View>
     </View>
   )
 }
 
 const Contact = (props) => {
   return (
-    <View>
-      <Author author={props.message.value.author} />
-      <Text>is now following</Text>
-      <Author author={props.message.value.content.contact} />
+    <View style={[styles.message, styles.contact]}>
+      <AuthorImage author={props.message.value.author} />
+
+      <View style={styles.messageContent}>
+        <Text>
+          <AuthorInline author={props.message.value.author} /> is now following { props.message.value.content.contact.slice(0, 5) }...
+        </Text>
+      </View>
     </View>
   )
 }
 
 const Post = (props) => {
   return (
-    <View>
-      <Author author={props.message.value.author} />
-      <Text>{props.message.value.content.text}</Text>
+    <View style={[styles.message, styles.post]}>
+      <AuthorImage author={props.message.value.author} />
+
+      <View style={styles.messageContent}>
+        <Author author={props.message.value.author} />
+
+         <Text>{props.message.value.content.text}</Text>
+      </View>
     </View>
   )
 }
 
 const Vote = (props) => {
   return (
-    <View>
-      <Author author={props.message.value.author} />
-      <Text>voted for content {props.message.value.content.vote.link}</Text>
+    <View style={[styles.message, styles.vote]}>
+      <AuthorImage author={props.message.value.author} />
+
+      <View style={styles.messageContent}>
+        <Text>
+          <AuthorInline author={props.message.value.author} /> voted for content {props.message.value.content.vote.link}
+        </Text>
+      </View>
     </View>
   )
 }
 
 const Channel = (props) => {
   return (
-    <View>
-      <Author author={props.message.value.author} />
+    <View style={[styles.message, styles.channel]}>
+      <AuthorImage author={props.message.value.author} />
+
       <Text>subscribed to channel {props.message.value.content.channel}</Text>
     </View>
   )
@@ -140,30 +174,42 @@ export default class Messages extends React.Component<any, any> {
       }
     })
     
-    return <View><Text>Messages</Text>{ messages }</View>;
+    return <View>{ messages }</View>;
   }
 }
 
 // styles
 const styles = StyleSheet.create({
-  root: {
-    alignItems: 'center',
-    alignSelf: 'center',
+  about: {},
+  contact: {},
+  post: {},
+  vote: {},
+  channel: {},
+  author: {
+    color: '#777'
   },
-  buttons: {
-    flexDirection: 'row',
-    minHeight: 70,
-    alignItems: 'stretch',
-    alignSelf: 'center',
-    borderWidth: 5,
+  authorImage: {
+    borderRadius: 100,
+    width: 32,
+    height: 32,
+    margin: 8,
+    backgroundColor: '#888',
+    flex: 0
   },
-  button: {
-    flex: 1,
-    paddingVertical: 0,
-  },
-  greeting: {
-    color: '#999',
+
+  authorText: {
+    fontFamily: 'System',
     fontWeight: 'bold',
+    color: '#333'
   },
+
+  message: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#aaa',
+    flexDirection: 'row',
+  },
+  messageContent: {
+    flex: 1
+  }
 });
 

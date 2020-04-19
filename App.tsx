@@ -35,11 +35,9 @@ const App: () => React$Node = () => {
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
           <View style={styles.header}>
-            <Text style={styles.headerText}>Butter</Text>
-
             <Image
-              style={{ width: 60, height: 30}}
-              source={require('./images/butter.jpg')}
+              style={{ width: 60, height: 40}}
+              source={require('./images/butter.png')}
             />
           </View>
           <View style={styles.body}>
